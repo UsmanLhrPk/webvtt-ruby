@@ -46,7 +46,9 @@ module WebVTT
           @cues << cue_parsed
         end
       end
-      @cues
+
+      annotation = Annotation.new(content)
+      @cues = @cues.map { |cue| Annotation.new(cue.text, content) }
     end
   end
 end
