@@ -1,6 +1,6 @@
 module WebVTT
   class Cue
-    attr_accessor :identifier, :start, :end, :style, :text
+    attr_accessor :identifier, :start, :end, :style, :text, :annotations
 
     TIMESTAMP_SEPARATOR = '-->'
 
@@ -77,6 +77,7 @@ module WebVTT
         @end = Timestamp.new '00:'+ $2
         @style = Hash[$3.strip.split(" ").map{|s| s.split(":").map(&:strip) }]
       end
+
       @text = lines[1..-1].join("\n")
     end
 
