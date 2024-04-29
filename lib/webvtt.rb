@@ -1,3 +1,4 @@
+$LOAD_PATH << "./lib/"
 # encoding: UTF-8
 
 if defined?(Encoding)

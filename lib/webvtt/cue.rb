@@ -1,6 +1,6 @@
 module WebVTT
   class Cue
-    attr_accessor :identifier, :start, :end, :style, :text, :annotations
+    attr_accessor :identifier, :start, :end, :style, :text, :annotations, :content
 
     TIMESTAMP_SEPARATOR = '-->'
 

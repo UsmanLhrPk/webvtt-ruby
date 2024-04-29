@@ -32,6 +32,7 @@ module WebVTT
       content.gsub!("\uFEFF", '')
 
       cues = content.split(/\n\n+/)
+      annotation = Annotation.new(content)
 
       @header = cues.shift
       header_lines = @header.split("\n").map(&:strip)
@@ -43,12 +44,18 @@ module WebVTT
       cues.each do |cue|
         cue_parsed = Cue.parse(cue.strip)
         if !cue_parsed.text.nil?
-          @cues << cue_parsed
+          @cues << parse_annotations(cue_parsed, annotation)
         end
       end
+    end
 
-      annotation = Annotation.new(content)
-      @cues = @cues.map { |cue| Annotation.new(cue.text, content) }
+    def parse_annotations(cue, annotation)
+      annotation_point = annotation.parse(cue.text)
+      cue.annotations = annotation_point if !annotation_point.nil?
+      cue.content = annotation.sanitize(cue.content)
+      cue.text = annotation.sanitize(cue.text)
+
+      cue
     end
   end
 end
