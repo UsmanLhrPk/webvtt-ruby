@@ -44,16 +44,16 @@ module WebVTT
     end
 
     def sanitize(text)
-      text.gsub(/(<c\.\d+>|<\/c>)/, '')
+      text.gsub(%r((<c\.\d+>|</c>)), '')
     end
 
     def sanitize_speaker(text)
-      text.gsub(/(<v>|<\/v>)/, '')
+      text.gsub(%r((<v>|</v>)), '')
     end
 
     def parse_annotation_reference(annotation)
-      ref_id = annotation.match(/(?<=<c\.)\d+(?=>)/)
-      @references.match(/<annotation ref="#{ref_id}">(.+)<\/annotation>\n/)[1]
+      ref_id = annotation.match(%r((?<=<c\.)\d+(?=>)))
+      @references.match(%r(<annotation ref="#{ref_id}">(.+)<\/annotation>\n))[1]
     end
   end
 end
